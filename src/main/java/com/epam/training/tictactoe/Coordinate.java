@@ -12,6 +12,17 @@ public class Coordinate {
         this.y = y;
         this.type = type;
     }
+    
+    
+
+
+    public Coordinate(int x, int y) {
+        super();
+        this.x = x;
+        this.y = y;
+    }
+
+
 
 
     public int getX() {
@@ -26,6 +37,12 @@ public class Coordinate {
 
     public String getType() {
         return type;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Coordinate [x=" + x + ", y=" + y + ", type=" + type + "]";
     }
     
     

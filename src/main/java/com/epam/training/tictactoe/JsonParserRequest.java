@@ -7,8 +7,6 @@ import org.json.JSONObject;
 public class JsonParserRequest {
     
     
-    Strategy strategy = new Strategy();
-    
     public String isMyTurn(String uuid){
         JSONObject obj = new JSONObject();
         obj.put("uuid",uuid);     
@@ -18,7 +16,7 @@ public class JsonParserRequest {
         return jsonText;
     }
 
-    public String put(String uuid) {
+    public String put(String uuid, Strategy strategy) {
         JSONObject obj = new JSONObject();
         Coordinate nextMove = strategy.nextMove();
         obj.put("uuid",uuid);
@@ -27,6 +25,7 @@ public class JsonParserRequest {
         StringWriter out = new StringWriter();
         obj.write(out);
         String jsonText = out.toString();
+        System.out.println(jsonText);
         return jsonText;
     }
     

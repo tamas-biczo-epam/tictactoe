@@ -7,26 +7,30 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import javax.net.ssl.HttpsURLConnection;
-
 public class Client 
 {
-    private static final String URL = "http://10.0.8.254:8080/xoxo";
+    private static final String URL = "http://10.0.8.110:8080/xoxo";
     private final String USER_AGENT = "Mozilla/5.0";
     private JsonParserResponse responseParser = new JsonParserResponse();
     private JsonParserRequest requestParser = new JsonParserRequest();
     private String uuid;
     private String type;
+    private Strategy strategy = new Strategy();
     
-    public static void main( String[] args )
+    public static void main( String[] args ) throws Exception
     {
         Client client = new Client();
+        client.registration();
+        while(true){
         try {
-            client.registration();
+            if(client.isMyTurn()){
+                client.put();
+            }
+            Thread.sleep(500);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    
+        }
     }
     private void registration() throws Exception {
 
@@ -46,25 +50,26 @@ public class Client
             response.append(inputLine);
         }
         in.close();
-
+        System.out.println(response.toString());
         responseParser.registration(response);
         uuid = responseParser.getUuid();
         type = responseParser.getType();
+        strategy.setType(type);
+        
 
     }
     
     private void put() throws Exception {
 
-        URL obj = new URL(URL);
-        HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+        URL obj = new URL(URL+"/put");
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
         //add reuqest header
         con.setRequestMethod("POST");
         con.setRequestProperty("User-Agent", USER_AGENT);
         con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-        String urlParameters = requestParser.put(uuid);
-        
+        String urlParameters = requestParser.put(uuid, strategy);
         // Send post request
         con.setDoOutput(true);
         DataOutputStream wr = new DataOutputStream(con.getOutputStream());
@@ -84,13 +89,14 @@ public class Client
         }
         in.close();
         
+        System.out.println(response.toString());
         responseParser.putResponse(response);
 
     }
 
-    private void isMyTurn() throws IOException{
-        URL obj = new URL(URL);
-        HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+    private boolean isMyTurn() throws IOException{
+        URL obj = new URL(URL+"/ismyturn");
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
         //add reuqest header
         con.setRequestMethod("POST");
@@ -116,9 +122,10 @@ public class Client
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
         }
+        System.out.println(response.toString());
         in.close();
         
-        responseParser.isMyTurnResponse(response);
+        return responseParser.isMyTurnResponse(response, strategy);
     }
     
 }
