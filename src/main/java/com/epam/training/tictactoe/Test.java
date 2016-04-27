@@ -10,7 +10,7 @@ public class Test {
         JsonParserResponse responseParser = new JsonParserResponse();
         
        Strategy strategy1 = new Strategy();
-       Strategy strategy2 = new Strategy();
+       DefensiveStrategy strategy2 = new DefensiveStrategy();
        List<Coordinate> table = new ArrayList<>();
        
        strategy1.setType("x");
@@ -29,17 +29,22 @@ public class Test {
         }
         else{
             Coordinate nextMove = strategy2.nextMove();
+            System.out.println("Enemy move: "+nextMove);
             table.add(nextMove);
             strategy1.setEnemyLastMove(nextMove);
             strategy2.setIsMyturn(false);
             strategy1.setIsMyturn(true);
         }
         
+        for (Coordinate coordinate : table) {
+            System.out.println(coordinate.toString());
+        }
+        
         System.out.print("\033[H\033[2J");
         boolean isReserved = false;
         
-        for (int i = -5; i < 5; i++) {
-            for (int j = -5; j < 5; j++) {
+        for (int i = -25; i < 25; i++) {
+            for (int j = -25; j < 25; j++) {
                 for (Coordinate coordinate : table) {
                     if(coordinate.getX()==i && coordinate.getY()==j){
                         System.out.print(coordinate.getType());
@@ -60,11 +65,8 @@ public class Test {
         }
         
         System.out.println();
-        for (Coordinate coordinate : table) {
-            System.out.print(coordinate.toString()+" ,");
-        }
         System.out.println();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
        }
     }
 }

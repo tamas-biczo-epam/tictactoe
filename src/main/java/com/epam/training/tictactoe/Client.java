@@ -37,7 +37,18 @@ public class Client
         URL obj = new URL(URL+"/reg");
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-        con.setRequestMethod("GET");
+        //add reuqest header
+        con.setRequestMethod("POST");
+        con.setRequestProperty("User-Agent", USER_AGENT);
+        con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+
+        String urlParameters = requestParser.registration();
+        // Send post request
+        con.setDoOutput(true);
+        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+        wr.writeBytes(urlParameters);
+        wr.flush();
+        wr.close();
 
         int responseCode = con.getResponseCode();
 
@@ -50,6 +61,7 @@ public class Client
             response.append(inputLine);
         }
         in.close();
+        
         System.out.println(response.toString());
         responseParser.registration(response);
         uuid = responseParser.getUuid();

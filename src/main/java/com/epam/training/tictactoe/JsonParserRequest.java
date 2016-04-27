@@ -29,4 +29,14 @@ public class JsonParserRequest {
         return jsonText;
     }
     
+    public String registration(){
+        JSONObject obj = new JSONObject();
+        obj.put("name","Tomi");     
+        StringWriter out = new StringWriter();
+        obj.write(out);
+        String jsonText = out.toString();
+        return jsonText;
+        
+    }
+    
 }
