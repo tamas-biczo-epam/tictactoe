@@ -15,7 +15,7 @@ public class Strategy {
 
     public Coordinate nextMove() {
         if (table.isEmpty()) {
-            nextMove = new Coordinate(3, 3, type);
+            nextMove = new Coordinate(10, 10, type);
             table.add(nextMove);
             Row row = new Row();
             row.addCoordinate(nextMove);
@@ -33,9 +33,7 @@ public class Strategy {
             System.out.println(nextMove.toString());
             updateRows(nextMove);
         }
-        for (Row row : rows) {
-            System.out.println(row.toString());
-        }
+       
         setTableSize(nextMove);
         return nextMove;
     }
@@ -45,11 +43,9 @@ public class Strategy {
         Row maxRow;
         while (!copyRows.isEmpty()) {
             maxRow = getMaxRow(copyRows);
-            System.out.println("Max row "+ maxRow.toString());
             if (!isOccupied(maxRow.getFirstCoordinate(type))) {
                 Coordinate result = maxRow.getFirstCoordinate(type);
                 maxRow.addCoordinate(result);
-                System.out.println(result.toString());
                 return result;
             } else if (!isOccupied(maxRow.getLastCoordinate(type))) {
                 Coordinate result = maxRow.getLastCoordinate(type);

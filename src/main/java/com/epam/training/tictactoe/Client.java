@@ -16,21 +16,39 @@ public class Client
     private String uuid;
     private String type;
     private Strategy strategy = new Strategy();
+    private int status;
     
     public static void main( String[] args ) throws Exception
     {
         Client client = new Client();
         client.registration();
-        while(true){
+        Client client2 = new Client();
+        client2.registration();
+        boolean isRunning = true;
+        while(isRunning){
         try {
             if(client.isMyTurn()){
+                
                 client.put();
             }
-            Thread.sleep(500);
+            else if(client2.isMyTurn()){
+                client2.put();
+            }
+            
+            if(client.getStatus() == 100){
+                isRunning = false;
+            }
+            else if(client2.getStatus() == 100){
+                isRunning = false;
+            }
+            Thread.sleep(1500);
         } catch (Exception e) {
             e.printStackTrace();
         }
         }
+    }
+    public int getStatus() {
+        return status;
     }
     private void registration() throws Exception {
 
@@ -137,7 +155,10 @@ public class Client
         System.out.println(response.toString());
         in.close();
         
-        return responseParser.isMyTurnResponse(response, strategy);
+        boolean result = responseParser.isMyTurnResponse(response, strategy);
+        status = responseParser.getStatus();
+        System.out.println(""+status);
+        return result;
     }
     
 }

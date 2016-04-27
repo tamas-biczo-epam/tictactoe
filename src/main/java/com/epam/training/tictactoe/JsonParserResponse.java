@@ -6,6 +6,7 @@ public class JsonParserResponse {
     
     private String uuid;
     private String type;
+    private int status;
     
     public void registration(StringBuffer response) {
         JSONObject obj = new JSONObject(response.toString());
@@ -16,7 +17,8 @@ public class JsonParserResponse {
     public boolean isMyTurnResponse(StringBuffer response, Strategy strategy) {      
         JSONObject obj = new JSONObject(response.toString());
         boolean isMyTurn = obj.getBoolean("isMyTurn");
-
+        status = obj.getInt("statusCode");
+        
         JSONObject obj2 = obj.getJSONObject("lastMove");
         int x = obj2.getInt("x");
         int y = obj2.getInt("y");
@@ -39,4 +41,10 @@ public class JsonParserResponse {
     public String getType() {
         return type;
     }
+
+    public int getStatus() {
+        return status;
+    }
+    
+    
 }

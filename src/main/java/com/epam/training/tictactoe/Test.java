@@ -9,7 +9,7 @@ public class Test {
     public static void main(String[] args) throws InterruptedException {
         JsonParserResponse responseParser = new JsonParserResponse();
         
-       Strategy strategy1 = new Strategy();
+        DefensiveStrategy strategy1 = new DefensiveStrategy();
        DefensiveStrategy strategy2 = new DefensiveStrategy();
        List<Coordinate> table = new ArrayList<>();
        
