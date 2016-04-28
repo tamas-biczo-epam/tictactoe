@@ -15,7 +15,7 @@ public class Strategy {
 
     public Coordinate nextMove() {
         if (table.isEmpty()) {
-            nextMove = new Coordinate(10, 10, type);
+            nextMove = new Coordinate(0, 0, type);
             table.add(nextMove);
             Row row = new Row();
             row.addCoordinate(nextMove);
@@ -103,7 +103,7 @@ public class Strategy {
 
     public Coordinate randCoordinate() {
         Random rand = new Random();
-        Coordinate randCoord = new Coordinate(rand.nextInt(50) - 25, rand.nextInt(50) - 25, type);
+        Coordinate randCoord = new Coordinate(rand.nextInt(10) - 5, rand.nextInt(10) - 5, type);
         if (table.contains(randCoord)) {
             randCoord = randCoordinate();
         }

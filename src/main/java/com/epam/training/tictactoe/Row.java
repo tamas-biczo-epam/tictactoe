@@ -37,7 +37,7 @@ public class Row {
                         minY = coordinate.getY();
                     }
                     else{
-                        result = new Coordinate(minX - 1, minY - 1, type);
+                        result = new Coordinate(minX, minY - 1, type);
                     }
                 }
             } else if (isHorizontal()) {
@@ -47,7 +47,7 @@ public class Row {
                         minX = coordinate.getX();
                     }
                     else{
-                        result = new Coordinate(minX - 1, minY - 1, type);
+                        result = new Coordinate(minX - 1, minY, type);
                     }
                 }
             } else if (isDiagonal()) {
@@ -57,7 +57,7 @@ public class Row {
                         minX = coordinate.getX();
                     }
                     else{
-                        result = new Coordinate(minX - 1, minY - 1, type);
+                        result = new Coordinate(minX - 1, minY + 1, type);
                     }
                 }
             } else {
@@ -87,7 +87,7 @@ public class Row {
                     maxY = coordinate.getY();
                 }
                 else{
-                    result = new Coordinate(maxX - 1, maxY - 1, type);
+                    result = new Coordinate(maxX, maxY + 1, type);
                 }
             }
         } else if (isHorizontal()) {
@@ -97,7 +97,7 @@ public class Row {
                     maxX = coordinate.getX();
                 }
                 else{
-                    result = new Coordinate(maxX - 1, maxY - 1, type);
+                    result = new Coordinate(maxX + 1, maxY, type);
                 }
             }
         } else if (isDiagonal()) {
@@ -107,7 +107,7 @@ public class Row {
                     maxX = coordinate.getX();
                 }
                 else{
-                    result = new Coordinate(maxX - 1, maxY - 1, type);
+                    result = new Coordinate(maxX + 1, maxY - 1, type);
                 }
             }
         } else {
@@ -117,7 +117,7 @@ public class Row {
                     maxX = coordinate.getX();
                 }
                 else{
-                    result = new Coordinate(maxX - 1, maxY - 1, type);
+                    result = new Coordinate(maxX + 1, maxY + 1, type);
                 }
             }
         }

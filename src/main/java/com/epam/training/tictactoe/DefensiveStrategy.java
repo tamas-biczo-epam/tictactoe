@@ -18,6 +18,7 @@ public class DefensiveStrategy {
         int y = 0;
 
         Coordinate enemyLastMove = table.get(table.size() - 1);
+        System.out.println(enemyLastMove);
 
         return getPossibleEnemyStep(enemyLastMove);
     }
@@ -29,6 +30,8 @@ public class DefensiveStrategy {
     private Coordinate getPossibleEnemyStep(Coordinate enemyLastMove) {
         int enemyX = enemyLastMove.getX();
         int enemyY = enemyLastMove.getY();
+        
+        System.out.println("x: "+enemyX+" y: "+enemyY);
         String enemyType = enemyLastMove.getType();
         String myType;
         if (enemyType.toLowerCase().equals("X".toLowerCase())) {
@@ -71,7 +74,7 @@ public class DefensiveStrategy {
                                     if (coordinate.getX() == enemyX - 1 && coordinate.getY() - 1 == enemyY //down - left
                                             && coordinate.getType().equals(enemyType) && isEmptyCell(enemyLastMove)) {
                                         System.out.println("Down - Left");
-                                        return new Coordinate(enemyX + 1, enemyY + 1, myType);
+                                        return new Coordinate(enemyX - 1, enemyY + 1, myType);
                                     } else {
                                         if (coordinate.getX() == enemyX + 1 && coordinate.getY() - 1 == enemyY //down - right
                                                 && coordinate.getType().equals(enemyType)
@@ -88,7 +91,7 @@ public class DefensiveStrategy {
             }
         }
         System.out.println("default");
-        return new Coordinate(enemyX + 3, enemyY + 3);
+        return new Coordinate(enemyX + 3, enemyY + 3, myType);
     }
 
     private boolean isEmptyCell(Coordinate coordinate) {

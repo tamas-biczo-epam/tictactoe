@@ -9,7 +9,7 @@ public class Test {
     public static void main(String[] args) throws InterruptedException {
         JsonParserResponse responseParser = new JsonParserResponse();
         
-        DefensiveStrategy strategy1 = new DefensiveStrategy();
+       Strategy strategy1 = new Strategy();
        DefensiveStrategy strategy2 = new DefensiveStrategy();
        List<Coordinate> table = new ArrayList<>();
        
@@ -41,14 +41,21 @@ public class Test {
         }
         
         System.out.print("\033[H\033[2J");
+        for (int i = -6; i < 6; i++) {
+            System.out.print(""+i+"\t");
+        }
+        System.out.println();
         boolean isReserved = false;
-        
-        for (int i = -25; i < 25; i++) {
-            for (int j = -25; j < 25; j++) {
+        int lineNum = 6;
+        for (int i = 5; i > -5-1; i--) {
+            for (int j = -5; j < 5+1; j++) {
+                if(j == -5){
+                    System.out.print(--lineNum+"\t");
+                }else{
                 for (Coordinate coordinate : table) {
-                    if(coordinate.getX()==i && coordinate.getY()==j){
+                    if(coordinate.getX()==j && coordinate.getY()==i){
                         System.out.print(coordinate.getType());
-                        System.out.print("   ");
+                        System.out.print("\t");
                         isReserved = true;
                         break;
                     }
@@ -56,9 +63,10 @@ public class Test {
                         isReserved = false;
                     }
                 }
+                }
                 if(!isReserved){
                     System.out.print("-");
-                    System.out.print("   ");
+                    System.out.print("\t");
                 }
             }
             System.out.println();
