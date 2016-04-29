@@ -18,12 +18,13 @@ public class JsonParserResponse {
         JSONObject obj = new JSONObject(response.toString());
         boolean isMyTurn = obj.getBoolean("isMyTurn");
         status = obj.getInt("statusCode");
-        
+        if(status != 100){
         JSONObject obj2 = obj.getJSONObject("lastMove");
         int x = obj2.getInt("x");
         int y = obj2.getInt("y");
-        String type = obj2.getString("t");
+        String type = obj2.getString("t");      
         strategy.setEnemyLastMove(new Coordinate(x, y, type));
+        }
         return isMyTurn;
     }
 

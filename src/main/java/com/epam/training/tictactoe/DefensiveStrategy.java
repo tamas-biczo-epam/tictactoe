@@ -80,7 +80,7 @@ public class DefensiveStrategy {
                                                 && coordinate.getType().equals(enemyType)
                                                 && isEmptyCell(enemyLastMove)) {
                                             System.out.println("Down - Right");
-                                            return new Coordinate(enemyX - 1, enemyY + 1, myType);
+                                            return new Coordinate(enemyX - 1, enemyY - 1, myType);
                                         }
                                     }
                                 }

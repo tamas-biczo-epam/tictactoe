@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class Client 
 {
-    private static final String URL = "http://10.0.8.110:8080/xoxo";
+    private static final String URL = "http://10.0.8.254:8080/xoxo";
     private final String USER_AGENT = "Mozilla/5.0";
     private JsonParserResponse responseParser = new JsonParserResponse();
     private JsonParserRequest requestParser = new JsonParserRequest();
@@ -22,25 +22,18 @@ public class Client
     {
         Client client = new Client();
         client.registration();
-        Client client2 = new Client();
-        client2.registration();
+//        Client client2 = new Client();
+//        client2.registration();
         boolean isRunning = true;
         while(isRunning){
         try {
             if(client.isMyTurn()){
-                
                 client.put();
             }
-            else if(client2.isMyTurn()){
-                client2.put();
-            }
-            
-            if(client.getStatus() == 100){
-                isRunning = false;
-            }
-            else if(client2.getStatus() == 100){
-                isRunning = false;
-            }
+//            else if(client2.isMyTurn()){
+//                client2.put();
+//            }
+
             Thread.sleep(1500);
         } catch (Exception e) {
             e.printStackTrace();
@@ -157,7 +150,6 @@ public class Client
         
         boolean result = responseParser.isMyTurnResponse(response, strategy);
         status = responseParser.getStatus();
-        System.out.println(""+status);
         return result;
     }
     

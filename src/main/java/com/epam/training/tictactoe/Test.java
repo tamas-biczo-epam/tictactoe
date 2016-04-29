@@ -36,26 +36,26 @@ public class Test {
             strategy1.setIsMyturn(true);
         }
         
-        for (Coordinate coordinate : table) {
-            System.out.println(coordinate.toString());
-        }
+//        for (Coordinate coordinate : table) {
+//            System.out.println(coordinate.toString());
+//        }
         
         System.out.print("\033[H\033[2J");
-        for (int i = -6; i < 6; i++) {
-            System.out.print(""+i+"\t");
-        }
+//        for (int i = -6; i < 6; i++) {
+//            System.out.print(""+i+"   ");
+//        }
         System.out.println();
         boolean isReserved = false;
         int lineNum = 6;
-        for (int i = 5; i > -5-1; i--) {
-            for (int j = -5; j < 5+1; j++) {
-                if(j == -5){
-                    System.out.print(--lineNum+"\t");
-                }else{
+        for (int i = 15; i > -15-1; i--) {
+            for (int j = -15; j < 15+1; j++) {
+//                if(j == -5){
+//                    System.out.print(--lineNum+"   ");
+//                }else{
                 for (Coordinate coordinate : table) {
                     if(coordinate.getX()==j && coordinate.getY()==i){
                         System.out.print(coordinate.getType());
-                        System.out.print("\t");
+                        System.out.print("   ");
                         isReserved = true;
                         break;
                     }
@@ -63,10 +63,10 @@ public class Test {
                         isReserved = false;
                     }
                 }
-                }
+             //   }
                 if(!isReserved){
                     System.out.print("-");
-                    System.out.print("\t");
+                    System.out.print("   ");
                 }
             }
             System.out.println();

@@ -30,7 +30,6 @@ public class Strategy {
         } else {
             nextMove = getNextCoordinate();
             table.add(nextMove);
-            System.out.println(nextMove.toString());
             updateRows(nextMove);
         }
        
@@ -39,20 +38,25 @@ public class Strategy {
     }
 
     private Coordinate getNextCoordinate() {
-        List<Row> copyRows = rows;
-        Row maxRow;
-        while (!copyRows.isEmpty()) {
-            maxRow = getMaxRow(copyRows);
+        //List<Row> copyRows = rows;
+        for (Row row : rows) {
+            System.out.println(row.toString());
+        }
+        Row maxRow = null;
+        while (!rows.isEmpty()) {
+            maxRow = getMaxRow(rows);
             if (!isOccupied(maxRow.getFirstCoordinate(type))) {
                 Coordinate result = maxRow.getFirstCoordinate(type);
+                System.out.println("First: "+result);
                 maxRow.addCoordinate(result);
                 return result;
             } else if (!isOccupied(maxRow.getLastCoordinate(type))) {
                 Coordinate result = maxRow.getLastCoordinate(type);
+                System.out.println("Last: "+result);
                 maxRow.addCoordinate(result);
                 return result;
             }
-            copyRows.remove(maxRow);
+            rows.remove(maxRow);
         }
         return randCoordinate();
     }
@@ -72,7 +76,7 @@ public class Strategy {
     private void updateRows(Coordinate nextMove) {
         int nextMoveX = nextMove.getX();
         int nextMoveY = nextMove.getY();
-        boolean isAdded = false;
+        boolean isAdded = true;
         for (Row row : rows) {
             for (Coordinate coordinate : row.getRow()) {
                 int x = coordinate.getX();
@@ -80,7 +84,7 @@ public class Strategy {
                 if (isNeighbour(nextMoveX, nextMoveY, x, y)) {
                     if (!row.getRow().contains(coordinate)) {
                         row.addCoordinate(coordinate);
-                        isAdded = true;
+                        isAdded = false;
                     }
                 }
             }
@@ -98,7 +102,12 @@ public class Strategy {
     }
 
     public boolean isOccupied(Coordinate coordinate) {
-        return table.contains(coordinate);
+        for (Coordinate actCoordinate : table) {
+            if(actCoordinate.getX() == coordinate.getX() && actCoordinate.getY()==coordinate.getY()){
+                return true;
+            }
+        }
+        return false;
     }
 
     public Coordinate randCoordinate() {
