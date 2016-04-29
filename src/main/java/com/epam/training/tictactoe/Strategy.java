@@ -30,7 +30,7 @@ public class Strategy {
         } else {
             nextMove = getNextCoordinate();
             table.add(nextMove);
-            updateRows(nextMove);
+            //updateRows(nextMove);
         }
        
         setTableSize(nextMove);
@@ -48,17 +48,21 @@ public class Strategy {
             if (!isOccupied(maxRow.getFirstCoordinate(type))) {
                 Coordinate result = maxRow.getFirstCoordinate(type);
                 System.out.println("First: "+result);
-                maxRow.addCoordinate(result);
+               maxRow.addCoordinate(result);
                 return result;
             } else if (!isOccupied(maxRow.getLastCoordinate(type))) {
                 Coordinate result = maxRow.getLastCoordinate(type);
                 System.out.println("Last: "+result);
-                maxRow.addCoordinate(result);
+               maxRow.addCoordinate(result);
                 return result;
             }
             rows.remove(maxRow);
         }
-        return randCoordinate();
+        Coordinate result = randCoordinate();
+        Row newRow = new Row();
+        newRow.addCoordinate(result);
+        rows.add(newRow);
+        return result;
     }
 
     private Row getMaxRow(List<Row> rows) {
@@ -76,7 +80,7 @@ public class Strategy {
     private void updateRows(Coordinate nextMove) {
         int nextMoveX = nextMove.getX();
         int nextMoveY = nextMove.getY();
-        boolean isAdded = true;
+        boolean isAdded = false;
         for (Row row : rows) {
             for (Coordinate coordinate : row.getRow()) {
                 int x = coordinate.getX();
@@ -84,13 +88,15 @@ public class Strategy {
                 if (isNeighbour(nextMoveX, nextMoveY, x, y)) {
                     if (!row.getRow().contains(coordinate)) {
                         row.addCoordinate(coordinate);
-                        isAdded = false;
+                        isAdded = true;
                     }
                 }
             }
         }
         if (!isAdded) {
-            rows.add(new Row());
+            Row newRow = new Row();
+            newRow.addCoordinate(nextMove);
+			rows.add(newRow);
         }
         
     }

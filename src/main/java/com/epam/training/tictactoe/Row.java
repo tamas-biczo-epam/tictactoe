@@ -24,20 +24,17 @@ public class Row {
     }
 
     public Coordinate getFirstCoordinate(String type) {
-        int minX = row.get(0).getX();
-        int minY = row.get(0).getY();
+        int minX = Integer.MAX_VALUE;
+        int minY = Integer.MAX_VALUE;
         Coordinate result = null;
         if (row.size() == 1) {
-            result = new Coordinate(minX+1, minY+1, type);
+            result = new Coordinate(row.get(0).getX()+1, row.get(0).getY()+1, type);
         } else {
             if (isVertical()) {
                 for (Coordinate coordinate : row) {
                     if (coordinate.getY() < minY) {
                         result = new Coordinate(coordinate.getX(), coordinate.getY() - 1, type);
                         minY = coordinate.getY();
-                    }
-                    else{
-                        result = new Coordinate(minX, minY - 1, type);
                     }
                 }
             } else if (isHorizontal()) {
@@ -46,18 +43,12 @@ public class Row {
                         result = new Coordinate(coordinate.getX() - 1, coordinate.getY(), type);
                         minX = coordinate.getX();
                     }
-                    else{
-                        result = new Coordinate(minX - 1, minY, type);
-                    }
                 }
             } else if (isDiagonal()) {
                 for (Coordinate coordinate : row) {
                     if (coordinate.getX() < minX) {
                         result = new Coordinate(coordinate.getX() - 1, coordinate.getY() + 1, type);
                         minX = coordinate.getX();
-                    }
-                    else{
-                        result = new Coordinate(minX - 1, minY + 1, type);
                     }
                 }
             } else {
@@ -66,9 +57,6 @@ public class Row {
                         result = new Coordinate(coordinate.getX() - 1, coordinate.getY() - 1, type);
                         minX = coordinate.getX();
                     }
-                    else{
-                        result = new Coordinate(minX - 1, minY - 1, type);
-                    }
                 }
             }
         }
@@ -76,8 +64,8 @@ public class Row {
     }
 
     public Coordinate getLastCoordinate(String type) {
-        int maxX = row.get(0).getX();
-        int maxY = row.get(0).getY();
+        int maxX = Integer.MIN_VALUE;
+        int maxY = Integer.MIN_VALUE;
         Coordinate result = null;
 
         if (isVertical()) {
@@ -86,18 +74,12 @@ public class Row {
                     result = new Coordinate(coordinate.getX(), coordinate.getY()+1, type);
                     maxY = coordinate.getY();
                 }
-                else{
-                    result = new Coordinate(maxX, maxY + 1, type);
-                }
             }
         } else if (isHorizontal()) {
             for (Coordinate coordinate : row) {
                 if (coordinate.getX() > maxX) {
                     result = new Coordinate(coordinate.getX() + 1, coordinate.getY(), type);
                     maxX = coordinate.getX();
-                }
-                else{
-                    result = new Coordinate(maxX + 1, maxY, type);
                 }
             }
         } else if (isDiagonal()) {
@@ -106,18 +88,12 @@ public class Row {
                     result = new Coordinate(coordinate.getX() + 1, coordinate.getY() - 1, type);
                     maxX = coordinate.getX();
                 }
-                else{
-                    result = new Coordinate(maxX + 1, maxY - 1, type);
-                }
             }
         } else {
             for (Coordinate coordinate : row) {
                 if (coordinate.getX() > maxX) {
                     result = new Coordinate(coordinate.getX() + 1, coordinate.getY() + 1, type);
                     maxX = coordinate.getX();
-                }
-                else{
-                    result = new Coordinate(maxX + 1, maxY + 1, type);
                 }
             }
         }
